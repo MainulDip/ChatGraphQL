@@ -1,5 +1,5 @@
 {
-  "name": "wp5-starter-react",
+  "name": "module-federation-active",
   "version": "1.0.1",
   "scripts": {
     "build": "webpack --mode production",
@@ -12,8 +12,8 @@
   },
   "license": "MIT",
   "author": {
-    "name": "Mainul Dip",
-    "email": "mainuldip@gmail.com"
+    "name": "Jack Herrington",
+    "email": "jherr@pobox.com"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
@@ -30,12 +30,9 @@
     "webpack-dev-server": "3.11.2"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.16",
     "@babel/runtime": "^7.13.10",
-    "graphql": "^15.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "shards-react": "^1.0.3",
-    "subscriptions-transport-ws": "^0.9.18"
+    "shards-react": "^1.0.3"
   }
 }

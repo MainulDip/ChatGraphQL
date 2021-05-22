@@ -1,6 +1,9 @@
-const { GraphQLServer, PubSub } = require('graphql-yoga')
+import { GraphQLServer, PubSub } from 'graphql-yoga'
+// import GraphQLServer = require('graphql-yoga')
+// import PubSub = require('graphql-yoga')
 
-const messages = []
+const messages: any[] = []
+console.dir(messages, { depth: null })
 
 const typeDefs = `
     type Message {
@@ -21,33 +24,43 @@ const typeDefs = `
       messages: [Message!]
     }
 `
-const subscribers = []
-const onMessagesUpdates = fn => subscribers.push(fn)
+const subscribers: (()=>void)[] = []
+const onMessagesUpdates = (fn: any) => { 
+  console.log('This from subscribers')
+ console.log(fn)
+  return subscribers.push(fn) 
+}
 
 const resolvers = {
   Query: {
     messages: () => messages
   },
   Mutation: {
-    postMessage: (parent, { user, content }) => {
+    postMessage: (parent: any, { user, content }: { user: string, content: string }): number => {
       const id = messages.length
       messages.push({
         id,
         user,
         content
       })
+      console.log(messages)
+      console.log(subscribers)
       subscribers.forEach(fn => fn())
       return id
     }
   },
   Subscription: {
     messages: {
-      subscribe: (parent, args, { pubsub }) => {
+      subscribe: (parent: any, args: any, { pubsub }: { pubsub: any }) => {
         const channel = Math.random()
           .toString(36)
           .slice(2, 15)
-
-        onMessagesUpdates(() => pubsub.publish(channel, { messages }))
+        console.log(`cannel: ${channel}`)
+        onMessagesUpdates(() => {
+          console.log('pubsub dir')
+          console.dir(pubsub.asyncIterator(channel), { depth: null })
+          return pubsub.publish(channel, { messages })
+        })
         setTimeout(() => pubsub.publish(channel, { messages }), 0)
 
         return pubsub.asyncIterator(channel)

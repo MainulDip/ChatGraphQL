@@ -47,7 +47,7 @@ const Messages = ({ user }) => {
             </div>
             <div>
                 {data.messages.map(({ id, user: messageUser, content }) => (
-                    <div style={{ display: 'flex', justifyContent: user === messageUser ? 'flex-end' : 'flex-start', paddingBottom: '1em' }}>
+                    <div key={id} style={{ display: 'flex', justifyContent: user === messageUser ? 'flex-end' : 'flex-start', paddingBottom: '1em' }}>
 
                         {user !== messageUser && (
                             <div style={{ height: 50, width: 50, marginRight: '0.5em', border: '2px solid black', borderRadius: 25, textAlign: 'center', fontSize: '16px', padding: 5 }}>
